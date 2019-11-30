@@ -14,33 +14,33 @@ copy_reference_files() {
       if cp --help 2>&1 | grep -q reflink ; then
           reflink="--reflink=auto"
       fi
-      if [ -n "$(find "${IVY_CONFIG}/cache" -maxdepth 0 -type d -empty 2>/dev/null)" ] ; then
+#      if [ -n "$(find "${IVY_CONFIG}/cache" -maxdepth 0 -type d -empty 2>/dev/null)" ] ; then
           # destination is empty...
           echo "--- Copying all files to ${IVY_CONFIG} at $(date)" >> "${log}"
-          cp -rv ${reflink} .ivy2/cache "${IVY_CONFIG}" >> "${log}"
+          cp -rvn ${reflink} .ivy2/cache "${IVY_CONFIG}" >> "${log}"
 
           echo "--- Copying all files to ${SBT_CONFIG} at $(date)" >> "${log}"
-          cp -rv ${reflink} .sbt/* "${SBT_CONFIG}" >> "${log}"
+          cp -rvn ${reflink} .sbt/* "${SBT_CONFIG}" >> "${log}"
 
-#          echo "--- Copying all files to ${COURSIER_CONFIG} at $(date)" >> "${log}"
-#          cp -rv ${reflink} v1/* "${COURSIER_CONFIG}" >> "${log}"
-      else
-          # destination is non-empty, copy file-by-file
-          echo "--- Copying individual files to ${IVY_CONFIG} at $(date)" >> "${log}"
-          find . -type f -exec sh -eu -c '
-              log="${1}"
-              shift
-              reflink="${1}"
-              shift
-              for f in "$@" ; do
-                  if [ ! -e "${IVY_CONFIG}/${f}" ] || [ -e "${f}.override" ] ; then
-                      mkdir -p "${IVY_CONFIG}/$(dirname "${f}")"
-                      cp -rv ${reflink} "${f}" "${IVY_CONFIG}/${f}" >> "${log}"
-                  fi
-              done
-          ' _ "${log}" "${reflink}" {} +
-          # FIXME: FALTA
-      fi
+##          echo "--- Copying all files to ${COURSIER_CONFIG} at $(date)" >> "${log}"
+##          cp -rv ${reflink} v1/* "${COURSIER_CONFIG}" >> "${log}"
+#      else
+#          # destination is non-empty, copy file-by-file
+#          echo "--- Copying individual files to ${IVY_CONFIG} at $(date)" >> "${log}"
+#          find .ivy2/cache -type f -exec sh -eu -c '
+#              log="${1}"
+#              shift
+#              reflink="${1}"
+#              shift
+#              for f in "$@" ; do
+#                  if [ ! -e "${IVY_CONFIG}/${f}" ] || [ -e "${f}.override" ] ; then
+#                      mkdir -p "${IVY_CONFIG}/$(dirname "${f}")"
+#                      cp -rv ${reflink} "${f}" "${IVY_CONFIG}/cache/${f}" >> "${log}"
+#                  fi
+#              done
+#          ' _ "${log}" "${reflink}" {} +
+#          # FIXME: FALTA
+#      fi
       echo >> "${log}"
   else
     echo "Can not write to ${log}. Wrong volume permissions? Carrying on ..."
