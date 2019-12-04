@@ -7,7 +7,7 @@ ARG BASE_URL=https://sbt-downloads.cdnedge.bluemix.net/releases/v${SBT_VERSION}
 
 RUN apt-get update && \
     apt-get install -y \
-      curl procps \
+      git curl procps \
   && rm -rf /var/lib/apt/lists/*
 
 RUN mkdir -p /usr/share/sbt /usr/share/sbt/ref \
@@ -17,10 +17,10 @@ RUN mkdir -p /usr/share/sbt /usr/share/sbt/ref \
   && rm -f /tmp/sbt.tgz \
   && ln -s /usr/share/sbt/bin/sbt /usr/bin/sbt
 RUN sbt \
-  && sbt --version \
-  && mv $USER_HOME_DIR/.ivy2 /usr/share/sbt/ref/ \
-  && mv $USER_HOME_DIR/.sbt /usr/share/sbt/ref/ \
-#  && mv $USER_HOME_DIR/.cache/coursier/v1 /usr/share/sbt/ref/ \
+  && sbt sbtVersion \
+  && cp -r $USER_HOME_DIR/.ivy2 /usr/share/sbt/ref/ \
+  && cp -r $USER_HOME_DIR/.sbt /usr/share/sbt/ref/ \
+  && cp -r $USER_HOME_DIR/.cache/coursier/v1 /usr/share/sbt/ref/ \
   && rm -fr project \
             target \
             /usr/share/sbt/ref/.ivy2/.sbt.ivy.lock \
@@ -29,7 +29,7 @@ RUN sbt \
 ENV SBT_HOME /usr/share/sbt
 ENV SBT_CONFIG "$USER_HOME_DIR/.sbt"
 ENV IVY_CONFIG "$USER_HOME_DIR/.ivy2"
-#ENV COURSIER_CONFIG "$USER_HOME_DIR/.cache/coursier/v1"
+ENV COURSIER_CONFIG "$USER_HOME_DIR/.cache/coursier/v1"
 
 COPY sbt-entrypoint.sh /usr/local/bin/sbt-entrypoint.sh
 

@@ -8,7 +8,7 @@ copy_reference_files() {
   local log="$SBT_CONFIG/copy_reference_file.log"
   local ref="/usr/share/sbt/ref"
 
-  if mkdir -p "${IVY_CONFIG}/cache" && mkdir -p "${SBT_CONFIG}" && touch "${log}" > /dev/null 2>&1 ; then
+  if mkdir -p "${IVY_CONFIG}/cache" && mkdir -p "${SBT_CONFIG}" && mkdir -p "${COURSIER_CONFIG}" && touch "${log}" > /dev/null 2>&1 ; then
       cd "${ref}"
       local reflink=""
       if cp --help 2>&1 | grep -q reflink ; then
@@ -22,8 +22,8 @@ copy_reference_files() {
           echo "--- Copying all files to ${SBT_CONFIG} at $(date)" >> "${log}"
           cp -rvn ${reflink} .sbt/* "${SBT_CONFIG}" >> "${log}"
 
-##          echo "--- Copying all files to ${COURSIER_CONFIG} at $(date)" >> "${log}"
-##          cp -rv ${reflink} v1/* "${COURSIER_CONFIG}" >> "${log}"
+          echo "--- Copying all files to ${COURSIER_CONFIG} at $(date)" >> "${log}"
+          cp -rvn ${reflink} v1/* "${COURSIER_CONFIG}" >> "${log}"
 #      else
 #          # destination is non-empty, copy file-by-file
 #          echo "--- Copying individual files to ${IVY_CONFIG} at $(date)" >> "${log}"
