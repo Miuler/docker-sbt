@@ -1,8 +1,8 @@
 FROM openjdk:11-jdk-slim
 
-ARG SBT_VERSION=1.3.4
+ARG SBT_VERSION=1.3.5
 ARG USER_HOME_DIR="/root"
-ARG SHA=e2dea253e36160710fbcb46f6d1aa3a79751738bd416f2977bf8816d5427cfa7c7c2942e4fb233b5b9dca56c6026353afbdedd7c9647cbecf209eeecd26020ff
+ARG SHA=435b4dd845945e12ca89b84d22e0840e7eb3c4f632e919c084b82288e98c8398660cb8b1bb1b4d7ec1574487def4d572b25dfa4d6ff24a51709454ded817815f
 ARG BASE_URL=https://sbt-downloads.cdnedge.bluemix.net/releases/v${SBT_VERSION}
 
 RUN apt-get update && \
