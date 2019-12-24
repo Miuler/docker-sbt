@@ -20,10 +20,10 @@ copy_reference_files() {
           cp -rvn ${reflink} .ivy2/cache "${IVY_CONFIG}" >> "${log}"
 
           echo "--- Copying all files to ${SBT_CONFIG} at $(date)" >> "${log}"
-          cp -rvn ${reflink} .sbt/* "${SBT_CONFIG}" >> "${log}"
+          cp -rvn ${reflink} .sbt/. "${SBT_CONFIG}" >> "${log}"
 
           echo "--- Copying all files to ${COURSIER_CONFIG} at $(date)" >> "${log}"
-          cp -rvn ${reflink} v1/* "${COURSIER_CONFIG}" >> "${log}"
+          cp -rvn ${reflink} v1/. "${COURSIER_CONFIG}" >> "${log}"
 #      else
 #          # destination is non-empty, copy file-by-file
 #          echo "--- Copying individual files to ${IVY_CONFIG} at $(date)" >> "${log}"
