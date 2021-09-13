@@ -1,0 +1,13 @@
+name: Docker SBT
+on:
+  push:
+    branches:
+      - master
+jobs:
+  Compilo sbt image:
+    name: Push Docker image to Docker Hub
+    runs-on: ubuntu-latest
+    steps:
+      - name: Compile
+        run: ls -a
+
