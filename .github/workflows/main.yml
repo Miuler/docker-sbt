@@ -8,6 +8,14 @@ jobs:
     name: Push Docker image to Docker Hub
     runs-on: ubuntu-latest
     steps:
-      - name: Compile
-        run: ls -a
+      - name: List
+        run: |
+          pwd
+          ls -a
+      - name: checkout
+        uses: actions/checkout@v2
+      - name: List
+        run: |
+          pwd
+          ls -a
 
