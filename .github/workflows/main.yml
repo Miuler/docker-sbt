@@ -15,6 +15,22 @@ jobs:
           echo "tags: ${{ steps.meta.outputs.tags }}"
           echo "labels: ${{ steps.meta.outputs.labels }}"
           export TEST001=Miuler
+      - name: Docker meta
+        id: meta
+        uses: docker/metadata-action@v3
+        with:
+          # list of Docker images to use as base name for tags
+          images: |
+            miuler/docker-sbt
+          # generate Docker tags based on the following events/attributes
+          tags: |
+            type=schedule
+            type=ref,event=branch
+            type=ref,event=pr
+            type=semver,pattern={{version}}
+            type=semver,pattern={{major}}.{{minor}}
+            type=semver,pattern={{major}}
+            type=sha
       - name: Build and push Docker image
         uses: docker/build-push-action@ad44023a93711e3deb337508980b4b5e9bcdc5dc
         with:
