@@ -4,7 +4,7 @@ on:
     branches:
       - master
 jobs:
-  Compilo sbt image:
+  Publish_sbt_image:
     name: Push Docker image to Docker Hub
     runs-on: ubuntu-latest
     steps:
