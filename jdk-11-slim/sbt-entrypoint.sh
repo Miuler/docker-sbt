@@ -8,7 +8,7 @@ copy_reference_files() {
   local log="$SBT_CONFIG/copy_reference_file.log"
   local ref="/usr/share/sbt/ref"
 
-  if mkdir -p "${IVY_CONFIG}/cache" && mkdir -p "${SBT_CONFIG}" && mkdir -p "${COURSIER_CONFIG}" && touch "${log}" > /dev/null 2>&1 ; then
+  if mkdir -p "${SBT_CONFIG}" && mkdir -p "${COURSIER_CONFIG}" && touch "${log}" > /dev/null 2>&1 ; then
       cd "${ref}"
       local reflink=""
       if cp --help 2>&1 | grep -q reflink ; then
@@ -16,8 +16,6 @@ copy_reference_files() {
       fi
 #      if [ -n "$(find "${IVY_CONFIG}/cache" -maxdepth 0 -type d -empty 2>/dev/null)" ] ; then
           # destination is empty...
-          echo "--- Copying all files to ${IVY_CONFIG} at $(date)" >> "${log}"
-          cp -rvn ${reflink} .ivy2/cache "${IVY_CONFIG}" >> "${log}"
 
           echo "--- Copying all files to ${SBT_CONFIG} at $(date)" >> "${log}"
           cp -rvn ${reflink} .sbt/. "${SBT_CONFIG}" >> "${log}"
@@ -50,7 +48,7 @@ copy_reference_files() {
 owd="$(pwd)"
 copy_reference_files
 unset SBT_CONFIG
-unset IVY_CONFIG
+unset COURSIER_CONFIG
 
 cd "${owd}"
 unset owd
