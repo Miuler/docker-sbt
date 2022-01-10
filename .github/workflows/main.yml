@@ -1,8 +1,8 @@
 name: Docker SBT
 on:
   push:
-    branches:
-      - master
+#    branches:
+#      - master
     tags:
       - 'v*'
 env:
