@@ -2,7 +2,7 @@ FROM openjdk:11-jdk-slim
 
 ARG SBT_VERSION=1.6.1
 ARG USER_HOME_DIR="/root"
-ARG SHA=c0fcd50cf5c91ed27ad01c5c6a8717b62700c87a50ff9b0e7573b227acb2b3c9
+ARG SHA=60286bf1b875b31e2955f8a699888cd2612e9afd94d03cde0a2e71efd7492ffc
 ARG BASE_URL=https://github.com/sbt/sbt/releases/download/v${SBT_VERSION}
 
 #ADD ${BASE_URL}/sbt-${SBT_VERSION}.tgz /tmp/sbt.tgz
